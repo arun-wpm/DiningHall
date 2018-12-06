@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="27dp">
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:rating="2.5"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="35dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="16sp"
+            tools:layout_editor_absoluteX="286dp"
+            tools:layout_editor_absoluteY="35dp" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
