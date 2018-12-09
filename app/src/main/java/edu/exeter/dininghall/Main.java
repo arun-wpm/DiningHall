@@ -1,5 +1,7 @@
 package edu.exeter.dininghall;
 
+import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,12 +10,18 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 import org.json.*;
+
+import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 public class Main extends AppCompatActivity {
@@ -24,26 +32,57 @@ public class Main extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     //http://www.json.org/
     //http://stleary.github.io/JSON-java/index.html
-    JSONArray MenuArray = new JSONArray(R.string.source);
+    int done = 0;
+    String raw;
+    JSONArray MenuArray;
+
+    JSONObject MenuObject;
+    int DaySelected;
     int MealSelected;
+    String[] myDataset;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            //TODO: better parsing
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.breakfast);
+                case R.id.navigation_breakfast:
                     MealSelected = 0;
+                    if (done == 0) return true;
+                    try {
+                        MenuObject = MenuArray.getJSONObject(DaySelected);
+                        myDataset = MenuObject.getString("Breakfast").split("</div>\r\n<div>");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    mAdapter = new MyAdapter(myDataset);
+                    mRecyclerView.setAdapter(mAdapter);
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.lunch);
+                case R.id.navigation_lunch:
                     MealSelected = 1;
+                    if (done == 0) return true;
+                    try {
+                        MenuObject = MenuArray.getJSONObject(DaySelected);
+                        myDataset = MenuObject.getString("Lunch").split("</div>\r\n<div>");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    mAdapter = new MyAdapter(myDataset);
+                    mRecyclerView.setAdapter(mAdapter);
                     return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.dinner);
+                case R.id.navigation_dinner:
                     MealSelected = 2;
+                    if (done == 0) return true;
+                    try {
+                        MenuObject = MenuArray.getJSONObject(DaySelected);
+                        myDataset = MenuObject.getString("Dinner").split("</div>\r\n<div>");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    mAdapter = new MyAdapter(myDataset);
+                    mRecyclerView.setAdapter(mAdapter);
                     return true;
             }
             return false;
@@ -51,15 +90,15 @@ public class Main extends AppCompatActivity {
     };
 
     public Main() throws JSONException {
-        //TODO: error boxes
+        //TODO: error handling
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        Log.e("TAG", "just show me something in the log pls");
 
-        mTextMessage = (TextView) findViewById(R.id.message);
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -72,22 +111,8 @@ public class Main extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(myDataset);
-        mRecyclerView.setAdapter(mAdapter);
-        //Display according to navigation bar / meal selected
-        //https://developer.android.com/guide/topics/ui/layout/recyclerview
-        //TODO: display breakfast, lunch and dinner by inflation
-        switch(MealSelected)
-        {
-            case 0:
-
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-        }
+        new Download().execute(getString(R.string.source));
+//        Log.e("TAG", raw);
 
         //TODO: settings menu
 
@@ -96,54 +121,74 @@ public class Main extends AppCompatActivity {
         //TODO: rating
     }
 
-}
-
-//I just copied from the Android Developer guide lol
-//TODO: make this work
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-    private String[] mDataset;
-
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-        public TextView mTextView;
-        public MyViewHolder(TextView v) {
-            super(v);
-            mTextView = v;
+    // https://developer.android.com/training/articles/perf-anr
+    public class Download extends AsyncTask<String, Void, Integer> {
+        // Do the long-running work in here
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+        protected Integer doInBackground(String... strings) {
+            try {
+                raw = readStringFromURL(strings[0]);
+                Log.e("TAG", raw);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return 0;
         }
-    }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(String[] myDataset) {
-        mDataset = myDataset;
-    }
+        protected void onPostExecute(Integer i) {
+            Log.e("TAG","done!");
+            done = 1;
+            try {
+                MenuArray = new JSONArray(raw);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
-    // Create new views (invoked by the layout manager)
-    @Override
-    public MyAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                     int viewType) {
-        // create a new view
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.my_text_view, parent, false);
-        ...
-        MyViewHolder vh = new MyViewHolder(v);
-        return vh;
-    }
+            //Display according to navigation bar / meal selected
+            //https://developer.android.com/guide/topics/ui/layout/recyclerview
+            //https://www.androidhive.info/2016/01/android-working-with-recycler-view/
+            switch(MealSelected) {
+                case 0:
+                    try {
+                        MenuObject = MenuArray.getJSONObject(DaySelected);
+                        myDataset = MenuObject.getString("Breakfast").split("</div>\r\n<div>");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 1:
+                    try {
+                        MenuObject = MenuArray.getJSONObject(DaySelected);
+                        myDataset = MenuObject.getString("Lunch").split("</div>\r\n<div>");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case 2:
+                    try {
+                        MenuObject = MenuArray.getJSONObject(DaySelected);
+                        myDataset = MenuObject.getString("Dinner").split("</div>\r\n<div>");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
 
-    // Replace the contents of a view (invoked by the layout manager)
-    @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset[position]);
+            // specify an adapter (see also next example)
+            mAdapter = new MyAdapter(myDataset);
+            mRecyclerView.setAdapter(mAdapter);
+        }
 
-    }
-
-    // Return the size of your dataset (invoked by the layout manager)
-    @Override
-    public int getItemCount() {
-        return mDataset.length;
+        //https://stackoverflow.com/questions/4328711/read-url-to-string-in-few-lines-of-java-code
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+        public String readStringFromURL(String requestURL) throws IOException
+        {
+            try (Scanner scanner = new Scanner(new URL(requestURL).openStream(),
+                    StandardCharsets.UTF_8.toString()))
+            {
+                scanner.useDelimiter("\\A");
+                return scanner.hasNext() ? scanner.next() : "";
+            }
+        }
     }
 }
