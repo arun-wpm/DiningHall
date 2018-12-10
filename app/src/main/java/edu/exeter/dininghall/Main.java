@@ -42,24 +42,31 @@ public class Main extends AppCompatActivity {
     int MealSelected;
     String[] myDataset;
 
+    private String Cleanup(String str)
+    {
+        str = str.replaceAll("\\r\\n","");
+        str = str.replaceAll("<.{1,3}>","");
+        str = str.replaceAll("&nbsp;","");
+        str = str.replaceAll("&amp;","&");
+        Log.e("TAG", str);
+        return str;
+    }
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            //TODO: better parsing
+            //TODO: delete the "" menus
             switch (item.getItemId()) {
                 case R.id.navigation_breakfast:
                     MealSelected = 0;
                     if (done == 0) return true;
                     try {
                         MenuObject = MenuArray.getJSONObject(DaySelected);
-                        myDataset = MenuObject.getString("Breakfast").split("div>");
+                        myDataset = MenuObject.getString("Breakfast").split("</div>");
                         for (int i = 0; i < myDataset.length; i++)
-                        {
-                            if (myDataset[i][0] == '\\')
-                                myDataset.dowhateverIneedto();
-                        }
+                            myDataset[i] = Cleanup(myDataset[i]);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
