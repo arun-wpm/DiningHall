@@ -53,7 +53,12 @@ public class Main extends AppCompatActivity {
                     if (done == 0) return true;
                     try {
                         MenuObject = MenuArray.getJSONObject(DaySelected);
-                        myDataset = MenuObject.getString("Breakfast").split("</div>\r\n<div>");
+                        myDataset = MenuObject.getString("Breakfast").split("div>");
+                        for (int i = 0; i < myDataset.length; i++)
+                        {
+                            if (myDataset[i][0] == '\\')
+                                myDataset.dowhateverIneedto();
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
