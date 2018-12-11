@@ -65,40 +65,38 @@ public class Main extends AppCompatActivity {
                     try {
                         MenuObject = MenuArray.getJSONObject(DaySelected);
                         myDataset = MenuObject.getString("Breakfast").split("</div>");
-                        for (int i = 0; i < myDataset.length; i++)
-                            myDataset[i] = Cleanup(myDataset[i]);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    mAdapter = new MyAdapter(myDataset);
-                    mRecyclerView.setAdapter(mAdapter);
-                    return true;
+                    break;
                 case R.id.navigation_lunch:
                     MealSelected = 1;
                     if (done == 0) return true;
                     try {
                         MenuObject = MenuArray.getJSONObject(DaySelected);
-                        myDataset = MenuObject.getString("Lunch").split("</div>\r\n<div>");
+                        myDataset = MenuObject.getString("Lunch").split("</div>");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    mAdapter = new MyAdapter(myDataset);
-                    mRecyclerView.setAdapter(mAdapter);
-                    return true;
+                    break;
                 case R.id.navigation_dinner:
                     MealSelected = 2;
                     if (done == 0) return true;
                     try {
                         MenuObject = MenuArray.getJSONObject(DaySelected);
-                        myDataset = MenuObject.getString("Dinner").split("</div>\r\n<div>");
+                        myDataset = MenuObject.getString("Dinner").split("</div>");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    mAdapter = new MyAdapter(myDataset);
-                    mRecyclerView.setAdapter(mAdapter);
-                    return true;
+                    break;
+                default:
+                    return false;
             }
-            return false;
+            for (int i = 0; i < myDataset.length; i++)
+                myDataset[i] = Cleanup(myDataset[i]);
+            mAdapter = new MyAdapter(myDataset);
+            mRecyclerView.setAdapter(mAdapter);
+            return true;
         }
     };
 
@@ -164,7 +162,7 @@ public class Main extends AppCompatActivity {
                 case 0:
                     try {
                         MenuObject = MenuArray.getJSONObject(DaySelected);
-                        myDataset = MenuObject.getString("Breakfast").split("</div>\r\n<div>");
+                        myDataset = MenuObject.getString("Breakfast").split("</div>");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -172,7 +170,7 @@ public class Main extends AppCompatActivity {
                 case 1:
                     try {
                         MenuObject = MenuArray.getJSONObject(DaySelected);
-                        myDataset = MenuObject.getString("Lunch").split("</div>\r\n<div>");
+                        myDataset = MenuObject.getString("Lunch").split("</div>");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -180,13 +178,13 @@ public class Main extends AppCompatActivity {
                 case 2:
                     try {
                         MenuObject = MenuArray.getJSONObject(DaySelected);
-                        myDataset = MenuObject.getString("Dinner").split("</div>\r\n<div>");
+                        myDataset = MenuObject.getString("Dinner").split("</div>");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    break;
             }
-
+            for (i = 0; i < myDataset.length; i++)
+                myDataset[i] = Cleanup(myDataset[i]);
             // specify an adapter (see also next example)
             mAdapter = new MyAdapter(myDataset);
             mRecyclerView.setAdapter(mAdapter);
