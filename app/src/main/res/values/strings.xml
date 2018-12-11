@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">DiningHall</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="lunch">Lunch</string>
+    <string name="dinner">Dinner</string>
+    <string name="source">https://api.exeter.edu/api/DiningMenu/GetDiningMenus?fbclid=IwAR0s_srRNrmQtmhJLENYNVdgsz5KY1gdZZfiITGRi_hDAe6gAzlTJDEfb2Y</string>
 </resources>
