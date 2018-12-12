@@ -13,7 +13,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import org.json.*;
@@ -26,10 +28,10 @@ import java.util.Scanner;
 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 public class Main extends AppCompatActivity {
 
-    private TextView mTextMessage;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private Button Elm, Weth;
     //http://www.json.org/
     //http://stleary.github.io/JSON-java/index.html
     int done = 0;
@@ -39,6 +41,7 @@ public class Main extends AppCompatActivity {
     JSONObject MenuObject;
     int DaySelected;
     int MealSelected;
+    int whichDHall = 0;
     String[] myDataset;
 
     private String Cleanup(String str)
@@ -47,6 +50,7 @@ public class Main extends AppCompatActivity {
         str = str.replaceAll("<.{1,3}>","");
         str = str.replaceAll("&nbsp;","");
         str = str.replaceAll("&amp;","&");
+        str = str.replaceAll("&#232;","è");
         Log.e("TAG", str);
         return str;
     }
@@ -93,7 +97,7 @@ public class Main extends AppCompatActivity {
             }
             for (int i = 0; i < myDataset.length; i++)
                 myDataset[i] = Cleanup(myDataset[i]);
-            mAdapter = new MyAdapter(myDataset);
+            mAdapter = new MyAdapter(myDataset, whichDHall);
             mRecyclerView.setAdapter(mAdapter);
             return true;
         }
@@ -127,6 +131,26 @@ public class Main extends AppCompatActivity {
         //TODO: settings menu
 
         //TODO: day tabs
+
+        //TODO: Elm/Weth
+        Elm = (Button) findViewById(R.id.buttonElm);
+        Weth = (Button) findViewById(R.id.buttonWeth);
+        Elm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                whichDHall = 0;
+                mAdapter = new MyAdapter(myDataset, whichDHall);
+                mRecyclerView.setAdapter(mAdapter);
+            }
+        });
+        Weth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                whichDHall = 1;
+                mAdapter = new MyAdapter(myDataset, whichDHall);
+                mRecyclerView.setAdapter(mAdapter);
+            }
+        });
 
         //TODO: rating
     }
@@ -185,7 +209,7 @@ public class Main extends AppCompatActivity {
             for (i = 0; i < myDataset.length; i++)
                 myDataset[i] = Cleanup(myDataset[i]);
             // specify an adapter (see also next example)
-            mAdapter = new MyAdapter(myDataset);
+            mAdapter = new MyAdapter(myDataset, whichDHall);
             mRecyclerView.setAdapter(mAdapter);
         }
 

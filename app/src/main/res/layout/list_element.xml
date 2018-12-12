@@ -34,7 +34,7 @@
             tools:layout_editor_absoluteY="35dp" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/ratingCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
