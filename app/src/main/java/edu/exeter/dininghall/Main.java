@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-//eyyy I can commit
-//or not?
-//sad
-=======
-//i can commit!
->>>>>>> dc3cd6ef5d39439f469d74607640b201ab702af8
 package edu.exeter.dininghall;
 
 import android.content.Context;
