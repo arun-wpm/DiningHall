@@ -24,26 +24,39 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         // each data item is just a string in this case
         public TextView mTextView;
         public RatingBar mRatingBar;
+        public TextView mRatingCount;
         public MyViewHolder(View v) {
             super(v);
             mTextView = v.findViewById(R.id.menuName);
             mRatingBar = v.findViewById(R.id.ratingBar);
+            mRatingCount = v.findViewById(R.id.ratingCount);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(String[] myDataset) {
+    public MyAdapter(String[] myDataset, int whichDHall) {
+        int currDHall = 0;
         ArrayList<String> Temp = new ArrayList<String>();
         ArrayList<Float> TempRating = new ArrayList<Float>();
         for (int i = 0; i < myDataset.length; i++)
         {
             if (!myDataset[i].equals("")) {
-                Temp.add(myDataset[i]);
                 //TODO: retrieve rating
-                if (myDataset[i].contains("Wetherell") || myDataset[i].contains("Elm Street"))
-                    TempRating.add(-1.0f);
-                else
+                if (myDataset[i].contains("Wetherell")) {
+                    currDHall = 1;
+                    if (currDHall == whichDHall)
+                        TempRating.add(-1.0f);
+                }
+                else if (myDataset[i].contains("Elm Street")) {
+                    currDHall = 0;
+                    if (currDHall == whichDHall)
+                        TempRating.add(-1.0f);
+                }
+                else if (currDHall == whichDHall)
                     TempRating.add(i%5 + 0.5f);
+
+                if (currDHall == whichDHall)
+                    Temp.add(myDataset[i]);
             }
         }
         mDataset = new String[Temp.size()];
@@ -71,15 +84,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
+        //TODO: fix bug - sometimes menu items take title formatting uwu
         Log.e("TAG",mDataset[position] + mRating[position]);
         holder.mTextView.setText(mDataset[position]);
         if (mRating[position] < 0.0f) {
             Log.e("TAG", (mRating[position] < 0.0f) + "");
             holder.mRatingBar.setVisibility(View.INVISIBLE);
             holder.mTextView.setTypeface(null, Typeface.BOLD);
+            holder.mTextView.setTextSize(20);
+            holder.mRatingCount.setText("");
         }
-        else
+        else {
             holder.mRatingBar.setRating(mRating[position]);
+            holder.mRatingCount.setText("0");
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

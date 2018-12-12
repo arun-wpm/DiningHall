@@ -7,12 +7,38 @@
     android:layout_height="match_parent"
     tools:context=".Main">
 
+    <LinearLayout
+        android:id="@+id/linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="191dp"
+        tools:layout_editor_absoluteY="8dp"
+        style="?android:attr/buttonBarStyle">
+
+        <Button
+            android:id="@+id/buttonElm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Elm Street"
+            style="?android:attr/buttonBarButtonStyle" />
+
+        <Button
+            android:id="@+id/buttonWeth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Wetherell"
+            style="?android:attr/buttonBarButtonStyle" />
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearlayout"
         tools:layout_editor_absoluteX="8dp" />
 
     <android.support.design.widget.BottomNavigationView
