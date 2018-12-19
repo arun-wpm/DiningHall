@@ -7,40 +7,107 @@
     android:layout_height="wrap_content">
 
 
-    <TextView
-        android:id="@+id/menuName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="16sp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/menuName"
-        tools:layout_editor_absoluteX="0dp">
+        android:orientation="horizontal">
 
-        <RatingBar
-            android:id="@+id/ratingBar"
-            style="@style/Widget.AppCompat.RatingBar.Small"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:numStars="5"
-            android:rating="2.5"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="35dp" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/ratingCount"
+            <TextView
+                android:id="@+id/menuName"
+                android:layout_width="250sp"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="16sp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/menuName"
+                tools:layout_editor_absoluteX="0dp">
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:rating="2.5"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="35dp" />
+
+                <TextView
+                    android:id="@+id/ratingCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textSize="16sp"
+                    tools:layout_editor_absoluteX="286dp"
+                    tools:layout_editor_absoluteY="35dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="16sp"
-            tools:layout_editor_absoluteX="286dp"
-            tools:layout_editor_absoluteY="35dp" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/d"
+            tools:layout_editor_absoluteX="349dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/f"
+            tools:layout_editor_absoluteX="349dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/gf"
+            tools:layout_editor_absoluteX="349dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/n"
+            tools:layout_editor_absoluteX="349dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/v"
+            tools:layout_editor_absoluteX="349dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/vg"
+            tools:layout_editor_absoluteX="349dp"
+            tools:layout_editor_absoluteY="0dp" />
 
     </LinearLayout>
 

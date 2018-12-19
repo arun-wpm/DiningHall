@@ -3,4 +3,5 @@
     <color name="colorPrimary">#EE2018</color>
     <color name="colorPrimaryDark">#78100c</color>
     <color name="colorAccent">#EEAA19</color>
+    <color name="white">#FFFFFF</color>
 </resources>
