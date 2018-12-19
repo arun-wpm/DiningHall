@@ -95,6 +95,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             holder.mRatingCount.setText("");
         }
         else {
+            holder.mRatingBar.setVisibility(View.VISIBLE);
+            holder.mTextView.setTypeface(null, Typeface.NORMAL);
+            holder.mTextView.setTextSize(14);
             holder.mRatingBar.setRating(mRating[position]);
             holder.mRatingCount.setText("0");
         }
