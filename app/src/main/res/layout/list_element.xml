@@ -21,8 +21,9 @@
                 android:id="@+id/menuName"
                 android:layout_width="250sp"
                 android:layout_height="wrap_content"
+                android:paddingLeft="20px"
                 android:text="TextView"
-                android:textSize="16sp"
+                android:textSize="24sp"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="0dp" />
 
@@ -36,9 +37,10 @@
                 <RatingBar
                     android:id="@+id/ratingBar"
                     style="@style/Widget.AppCompat.RatingBar.Small"
-                    android:layout_width="wrap_content"
+                    android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:numStars="5"
+                    android:paddingLeft="20px"
                     android:rating="2.5"
                     tools:layout_editor_absoluteX="16dp"
                     tools:layout_editor_absoluteY="35dp" />
@@ -60,6 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:visibility="gone"
             app:srcCompat="@drawable/d"
             tools:layout_editor_absoluteX="349dp"
             tools:layout_editor_absoluteY="0dp" />
@@ -69,6 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:visibility="gone"
             app:srcCompat="@drawable/f"
             tools:layout_editor_absoluteX="349dp"
             tools:layout_editor_absoluteY="0dp" />
@@ -78,6 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:visibility="gone"
             app:srcCompat="@drawable/gf"
             tools:layout_editor_absoluteX="349dp"
             tools:layout_editor_absoluteY="0dp" />
@@ -87,6 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:visibility="gone"
             app:srcCompat="@drawable/n"
             tools:layout_editor_absoluteX="349dp"
             tools:layout_editor_absoluteY="0dp" />
@@ -96,6 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:visibility="gone"
             app:srcCompat="@drawable/v"
             tools:layout_editor_absoluteX="349dp"
             tools:layout_editor_absoluteY="0dp" />
@@ -105,6 +112,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:visibility="gone"
             app:srcCompat="@drawable/vg"
             tools:layout_editor_absoluteX="349dp"
             tools:layout_editor_absoluteY="0dp" />
