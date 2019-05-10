@@ -57,7 +57,7 @@ public class Main extends AppCompatActivity {
         str = str.replaceAll("<.{1,3}>","");
         str = str.replaceAll("&nbsp;","");
         str = str.replaceAll("&amp;","&");
-        str = str.replaceAll("&#232;","è");
+        str = str.replaceAll("&#232;","รจ");
         Log.e("TAG", str);
         return str;
     }

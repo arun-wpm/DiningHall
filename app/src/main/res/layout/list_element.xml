@@ -42,6 +42,7 @@
                     android:numStars="5"
                     android:paddingLeft="20px"
                     android:rating="2.5"
+                    android:visibility="invisible"
                     tools:layout_editor_absoluteX="16dp"
                     tools:layout_editor_absoluteY="35dp" />
 
@@ -51,6 +52,7 @@
                     android:layout_height="wrap_content"
                     android:text="TextView"
                     android:textSize="16sp"
+                    android:visibility="invisible"
                     tools:layout_editor_absoluteX="286dp"
                     tools:layout_editor_absoluteY="35dp" />
 
