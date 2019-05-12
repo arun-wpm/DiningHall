@@ -1,6 +1,10 @@
+
+
 package edu.exeter.dininghall;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -113,16 +117,74 @@ public class Main extends AppCompatActivity {
     public Main() throws JSONException {
         //TODO: error handling
     }
-
+    public void onDestroy(){
+        super.onDestroy();
+        SharedPreferences mPrefs = getSharedPreferences("DHALLAPP", 0);
+        SharedPreferences.Editor mEditor = mPrefs.edit();
+        mEditor.putString("DHALL",((Integer)whichDHall).toString()).commit();
+    }
+    public void onStop(){
+        super.onStop();
+        SharedPreferences mPrefs = getSharedPreferences("DHALLAPP", 0);
+        SharedPreferences.Editor mEditor = mPrefs.edit();
+        mEditor.putString("DHALL",((Integer)whichDHall).toString()).commit();
+    }
+    public void onPause(){
+        super.onPause();
+        SharedPreferences mPrefs = getSharedPreferences("DHALLAPP", 0);
+        SharedPreferences.Editor mEditor = mPrefs.edit();
+        mEditor.putString("DHALL",((Integer)whichDHall).toString()).commit();
+    }
+    public void onBackPressed(){
+        SharedPreferences mPrefs = getSharedPreferences("DHALLAPP", 0);
+        SharedPreferences.Editor mEditor = mPrefs.edit();
+        mEditor.putString("DHALL",((Integer)whichDHall).toString()).commit();
+    }
+    public void onSaveInstanceState(Bundle bundle){
+        super.onSaveInstanceState(bundle);
+        bundle.putInt("whichDining",whichDHall);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(savedInstanceState!=null)
+        {
+            Log.d("DINING1",((Integer)savedInstanceState.getInt("whichDining")).toString());
+            whichDHall = savedInstanceState.getInt("whichDining");
+            mAdapter = new MyAdapter(myDataset, whichDHall);
+            mRecyclerView.setAdapter(mAdapter);
+        }
+        try{
+            SharedPreferences mPrefs = getSharedPreferences("DHALLAPP", 0);
+            String mString = mPrefs.getString("DHALL", "1");
+            whichDHall=Integer.parseInt(mString);}
+        catch(Exception e){}
         setContentView(R.layout.activity_main);
 //        Log.e("TAG", "just show me something in the log pls");
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        Calendar now = Calendar.getInstance();
+        int year = now.get(Calendar.YEAR);
+        int month = now.get(Calendar.MONTH) + 1; // Note: zero based!
+        int day = now.get(Calendar.DAY_OF_MONTH);
+        int hour = now.get(Calendar.HOUR_OF_DAY);
+        int minute = now.get(Calendar.MINUTE);
+        if(hour<=11)MealSelected=0;
+        else if(hour<=12||(hour==13&&minute<=30))MealSelected=1;
+        else MealSelected=2;
+        switch (MealSelected) {
+            case 0:
+                navigation.setSelectedItemId(R.id.navigation_breakfast);
+                break;
+            case 1:
+                navigation.setSelectedItemId(R.id.navigation_lunch);
+                break;
+            case 2:
+                navigation.setSelectedItemId(R.id.navigation_dinner);
+                break;
+        }
         textViewDay = (TextView) findViewById(R.id.Date);
         prevDay = (ImageButton) findViewById(R.id.prevDay);
         nextDay = (ImageButton) findViewById(R.id.nextDay);
@@ -161,6 +223,7 @@ public class Main extends AppCompatActivity {
                     nextDay.setVisibility(View.VISIBLE);
                 }
                 displayDay();
+
                 switch (MealSelected) {
                     case 0:
                         if (done == 0) break;
@@ -371,3 +434,5 @@ public class Main extends AppCompatActivity {
         }
     }
 }
+
+
