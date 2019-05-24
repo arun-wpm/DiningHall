@@ -1,4 +1,4 @@
-package edu.exeter.dininghall;
+package edu.exeter.dininghall1;
 
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
