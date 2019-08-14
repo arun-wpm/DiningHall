@@ -1,4 +1,4 @@
-package edu.exeter.dininghall;
+package edu.exeter.dininghall1;
 
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
@@ -89,17 +89,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.mTextView.setText(mDataset[position]);
         if (mRating[position] < 0.0f) {
             Log.e("TAG", (mRating[position] < 0.0f) + "");
-            holder.mRatingBar.setVisibility(View.INVISIBLE);
+            //holder.mRatingBar.setVisibility(View.INVISIBLE);
             holder.mTextView.setTypeface(null, Typeface.BOLD);
             holder.mTextView.setTextSize(20);
-            holder.mRatingCount.setText("");
+            //holder.mRatingCount.setText("");
         }
         else {
-            holder.mRatingBar.setVisibility(View.VISIBLE);
+            //holder.mRatingBar.setVisibility(View.VISIBLE);
             holder.mTextView.setTypeface(null, Typeface.NORMAL);
             holder.mTextView.setTextSize(14);
-            holder.mRatingBar.setRating(mRating[position]);
-            holder.mRatingCount.setText("0");
+            //holder.mRatingBar.setRating(mRating[position]);
+            //holder.mRatingCount.setText("0");
         }
     }
 
